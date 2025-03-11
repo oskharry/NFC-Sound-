@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFC Sound</title>
+    <style>
+        /* Den gesamten Body auf volle Höhe und Breite setzen */
+        body {
+            height: 100vh; /* Höhe des Viewports */
+            margin: 0; /* Kein Abstand am Rand */
+            display: flex; /* Flexbox aktivieren */
+            justify-content: center; /* Horizontale Zentrierung */
+            align-items: center; /* Vertikale Zentrierung */
+            font-family: Arial, sans-serif; /* Schöne Schriftart */
+            background-color: #f0f0f0; /* Heller Hintergrund */
+        }
+
+        /* CSS für den Button */
+        button {
+            font-size: 20px; /* Größerer Text */
+            padding: 20px 40px; /* Mehr Innenabstand */
+            background-color: #4CAF50; /* Grüner Hintergrund */
+            color: white; /* Weiße Schrift */
+            border: none; /* Keine Umrandung */
+            border-radius: 8px; /* Abgerundete Ecken */
+            cursor: pointer; /* Zeigt die Hand beim Überfahren */
+            transition: background-color 0.3s ease; /* Übergangseffekt */
+        }
+
+        /* Button Hover-Effekt */
+        button:hover {
+            background-color: #45a049; /* Dunklerer Grünton bei Hover */
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>NFC Sound</h1>
+        <p>Falls der Sound nicht startet, tippe auf den Button.</p>
+        <button onclick="playSound()">Play</button>
+    </div>
+
+    <script>
+        let audio = new Audio("sound.mp3");
+        audio.volume = 1.0; // Maximale Lautstärke für das Audio-Element
+
+        function playSound() {
+            audio.play();
+        }
+
+        document.addEventListener("DOMContentLoaded", async function () {
+            try {
+                audio.muted = true;  // Trick: Erst stumm starten
+                await audio.play();
+                audio.muted = false; // Dann Stummschaltung aufheben
+            } catch (error) {
+                console.log("Autoplay blockiert, Button muss gedrückt werden.");
+            }
+        });
+    </script>
+</body>
+</html>
