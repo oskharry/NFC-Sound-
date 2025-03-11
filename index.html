@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFC Sound</title>
+</head>
+<body>
+    <h1>NFC Sound</h1>
+    <p>Tippe auf den Button, falls der Sound nicht automatisch startet.</p>
+    <button onclick="playSound()">Play</button>
+
+    <script>
+        function playSound() {
+            let audio = new Audio("sound.mp3");
+            audio.volume = 1.0; // Maximale Lautstärke
+            audio.play();
+        }
+
+        // Automatisch starten, wenn möglich
+        document.addEventListener("DOMContentLoaded", function () {
+            let audio = new Audio("sound.mp3");
+            audio.volume = 1.0;
+            audio.play().catch(error => {
+                console.log("Autoplay blockiert, Benutzerinteraktion erforderlich.");
+            });
+        });
+    </script>
+</body>
+</html>
