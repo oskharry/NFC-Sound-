@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFC Sound</title>
+    <style>
+        /* Den gesamten Body auf volle Höhe und Breite setzen */
+        body {
+            height: 100vh; /* Höhe des Viewports */
+            margin: 0; /* Kein Abstand am Rand */
+            display: flex; /* Flexbox aktivieren */
+            justify-content: center; /* Horizontale Zentrierung */
+            align-items: center; /* Vertikale Zentrierung */
+            font-family: Arial, sans-serif; /* Schöne Schriftart */
+            background-color: #f0f0f0; /* Heller Hintergrund */
+            position: relative; /* Damit der Text überall positioniert werden kann */
+            overflow: hidden; /* Verhindert Scrollen, wenn der Text über den Rand hinausgeht */
+        }
+
+        /* Hintergrundtext "Drück mich!" schräg am Rand */
+        .background-text {
+            position: absolute;
+            top: 20%; /* Startposition */
+            left: -10%; /* Startposition außerhalb des Bildschirms */
+            font-size: 40px;
+            color: rgba(0, 0, 0, 0.1); /* Sehr dezente Farbe */
+            transform: rotate(-45deg); /* Text schräg stellen */
+            white-space: nowrap; /* Verhindert Zeilenumbruch */
+            z-index: 0;
+        }
+
+        /* Wiederhole den Text über den Rand hinweg */
+        .background-text span {
+            display: block;
+            margin-bottom: 50px; /* Abstand zwischen den Wiederholungen */
+        }
+
+        /* CSS für den Button */
+        button {
+            font-size: 20px; /* Größerer Text */
+            padding: 20px 40px; /* Mehr Innenabstand */
+            background-color: #f44336; /* Roter Hintergrund */
+            color: white; /* Weiße Schrift */
+            border: none; /* Keine Umrandung */
+            border-radius: 8px; /* Abgerundete Ecken */
+            cursor: pointer; /* Zeigt die Hand beim Überfahren */
+            transition: background-color 0.3s ease; /* Übergangseffekt */
+            z-index: 1; /* Button wird vor dem Hintergrundtext angezeigt */
+        }
+
+        /* Button Hover-Effekt */
+        button:hover {
+            background-color: #e53935; /* Dunklerer Rotschattenton bei Hover */
+        }
+    </style>
+</head>
+<body>
+    <!-- Wiederhole den Text "Drück mich!" schräg am Rand -->
+    <div class="background-text">
+        <span>Drück mich!</span>
+        <span>Drück mich!</span>
+        <span>Drück mich!</span>
+        <span>Drück mich!</span>
+        <span>Drück mich!</span>
+    </div>
+
+    <button onclick="playSound()">Play</button>
+
+    <script>
+        let audio = new Audio("sound.mp3");
+        audio.volume = 1.0; // Maximale Lautstärke für das Audio-Element
+
+        function playSound() {
+            audio.play();
+        }
+
+        document.addEventListener("DOMContentLoaded", async function () {
+            try {
+                audio.muted = true;  // Trick: Erst stumm starten
+                await audio.play();
+                audio.muted = false; // Dann Stummschaltung aufheben
+            } catch (error) {
+                console.log("Autoplay blockiert, Button muss gedrückt werden.");
+            }
+        });
+    </script>
+</body>
+</html>
