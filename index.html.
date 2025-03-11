@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sound Abspielen</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let audio = new Audio("sound.mp3"); // Sounddatei laden
+            audio.volume = 1.0; // Maximale Lautstärke
+            audio.play().catch(error => {
+                console.log("Autoplay blockiert, Benutzerinteraktion nötig.");
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Tippe, um den Sound abzuspielen</h1>
+    <button onclick="playSound()">Play</button>
+
+    <script>
+        function playSound() {
+            let audio = new Audio("sound.mp3"); 
+            audio.volume = 1.0;
+            audio.play();
+        }
+    </script>
+</body>
+</html>
